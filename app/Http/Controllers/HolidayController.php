@@ -14,7 +14,10 @@ class HolidayController extends Controller
      */
     public function index()
     {
-        //
+        $holidays = Holiday::latest()->paginate(5);
+
+        return view('holidays.index', compact('holidays'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     /**
@@ -24,7 +27,7 @@ class HolidayController extends Controller
      */
     public function create()
     {
-        //
+        return view('holidays.create');
     }
 
     /**
@@ -35,51 +38,71 @@ class HolidayController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'h_name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
+        ]);
+
+        Holiday::create($request->all());
+
+        return redirect()->route('holidays.index')
+            ->with('success', 'Holiday created successfully.');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Holiday  $holiday
+     * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
     public function show(Holiday $holiday)
     {
-        //
+        return view('holidays.show', compact('holiday'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Holiday  $holiday
+     * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
     public function edit(Holiday $holiday)
     {
-        //
+        return view('holidays.edit', compact('holiday'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Holiday  $holiday
+     * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Holiday $holiday)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'detail' => 'required',
+        ]);
+
+        $holiday->update($request->all());
+
+        return redirect()->route('holidays.index')
+            ->with('success', 'Holiday updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Holiday  $holiday
+     * @param  \App\Holiday  $holiday
      * @return \Illuminate\Http\Response
      */
     public function destroy(Holiday $holiday)
     {
-        //
+        $holiday->delete();
+
+        return redirect()->route('holidays.index')
+            ->with('success', 'Holiday deleted successfully');
     }
 }
