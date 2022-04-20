@@ -82,8 +82,9 @@ class HolidayController extends Controller
     public function update(Request $request, Holiday $holiday)
     {
         $request->validate([
-            'name' => 'required',
-            'detail' => 'required',
+            'h_name' => 'required',
+            'start_date' => 'required',
+            'end_date' => 'required',
         ]);
 
         $holiday->update($request->all());
