@@ -90,7 +90,7 @@ class HolidayController extends Controller
         $holiday->update($request->all());
 
         return redirect()->route('holidays.index')
-            ->with('success', 'Holiday updated successfully');
+            ->with('success', $holiday['h_name'] . ' updated successfully');
     }
 
     /**
@@ -104,6 +104,13 @@ class HolidayController extends Controller
         $holiday->delete();
 
         return redirect()->route('holidays.index')
-            ->with('success', 'Holiday deleted successfully');
+            ->with('success', $holiday['h_name'] . ' deleted successfully');
+    }
+    public function search()
+    {
+        $search_text = $_GET['query'];
+        $holidays = Holiday::where('h_name', 'LIKE', '%' . $search_text . '%')->get();
+
+        return view('holidays.search', compact('holidays'));
     }
 }
