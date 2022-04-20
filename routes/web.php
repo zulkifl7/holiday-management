@@ -15,7 +15,7 @@ use App\Http\Controllers\HolidayController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return view('welcome');
 });
 
-Route::resource('Holidays', HolidayController::class);
+Route::resource('holidays', HolidayController::class);
