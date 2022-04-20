@@ -1,34 +1,24 @@
 @extends('holidays.layout')
 
 @section('content')
-    <div class="">
-        <div class="pull-left">
-            @if ($message = Session::get('success'))
-                <div class="alert alert-success pull-left tp-2em">
-                    <p>{{ $message }}</p>
-                </div>
-            @endif
-        </div>
-        <div class="search pull-right">
-            <form type="GET" action="{{ url('/search') }}" class="search-form">
-                <input class="search-bar" type="search" placeholder="Search Holiday" name="query">
-                <input class="search-button " type="submit" value="Search">
-            </form>
-        </div>
-    </div>
-
     <main>
-
         <div class="row">
-            <div class="col-lg-12 margin-tb">
-                <div class="pull-left">
-                    <h2>Aj's Holiday Management</h2>
+            <div class="col-lg-12 margin-tb flex">
+                <div class="left">
+                    <a class="back" href="{{ route('holidays.index') }}"> Back</a>
+                </div>
+                <div class="push-right">
+                    <h2>Results</h2>
                 </div>
 
             </div>
         </div>
 
-
+        @if ($message = Session::get('success'))
+            <div class="alert alert-success">
+                <p>{{ $message }}</p>
+            </div>
+        @endif
 
         <table class="tbl">
             <tr>
@@ -38,6 +28,9 @@
                 <th>End</th>
                 <th>Action</th>
             </tr>
+            @php
+                $i = 0;
+            @endphp
             @foreach ($holidays as $holiday)
                 <tr>
                     <td>{{ ++$i }}</td>
@@ -60,9 +53,6 @@
                 </tr>
             @endforeach
         </table>
-        <div class="pull-right">
-            <a class="create-btn" href="{{ route('holidays.create') }}"> Create New Holiday</a>
-        </div>
+
     </main>
-    {!! $holidays->links() !!}
 @endsection
