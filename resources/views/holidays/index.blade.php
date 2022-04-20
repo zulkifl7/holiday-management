@@ -1,6 +1,12 @@
 @extends('holidays.layout')
 
 @section('content')
+    <div class="search pull-right">
+        <form action="" class="search-form">
+            <input class="search-bar" type="placeholder" placeholder="Search">
+            <input class="search-button " type="submit" value="Search">
+        </form>
+    </div>
     <main>
         <div class="row">
             <div class="col-lg-12 margin-tb">
