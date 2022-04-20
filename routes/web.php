@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HolidayController;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,3 +20,4 @@ Route::get('/', function () {
 });
 
 Route::resource('holidays', HolidayController::class);
+Route::get('/search', [HolidayController::class, 'search']);
